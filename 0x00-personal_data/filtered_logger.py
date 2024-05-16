@@ -15,9 +15,7 @@ def filter_datum(fields: typing.Sequence,
     """
     obfusticated_message = message
     for field in fields:
-        obfusticated_message = re.sub(
-            field + r'=.*?' + seperator,
-            field + r'=' + redaction + seperator,
-            obfusticated_message
-        )
+        obfusticated_message = re.sub(field + r'=.*?' + seperator,
+                                      field + r'=' + redaction + seperator,
+                                      obfusticated_message)
     return obfusticated_message
