@@ -9,6 +9,7 @@ import re
 def filter_datum(fields: typing.List[str], redaction: str, message: str,
                  seperator: str) -> str:
     """Function to implement obfustication based"""
-    if fields:
+    if len(fields) > 0:
         pattern = r"(" + "|".join(fields) + r")" + r"(=.*?)" + seperator
         return re.sub(pattern, r"\1=" + redaction + seperator, message)
+    return message
