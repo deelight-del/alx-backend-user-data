@@ -2,11 +2,11 @@
 """Module that will obfusticate a given string"""
 
 
-import typing
+from typing import List
 import re
 
 
-def filter_datum(fields: typing.List[str], redaction: str, message: str,
+def filter_datum(fields: List[str], redaction: str, message: str,
                  seperator: str) -> str:
     """Function to implement obfustication based"""
     if len(fields) > 0:
