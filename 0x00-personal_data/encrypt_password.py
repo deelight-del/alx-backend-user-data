@@ -11,4 +11,6 @@ def hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 
-#def is_valid(hashed_password: bytes)
+def is_valid(hashed_password: bytes, password: str) -> bool:
+    """Function to check if hashed_password and password are same"""
+    return bcrypt.checkpw(password.encode(), hashed_password)
