@@ -3,6 +3,7 @@
 string and help it out"""
 
 
+from mysql.connector import connection
 from typing import List, Sequence
 import logging
 import re
@@ -36,10 +37,7 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """The format method that will format respectilvely"""
         record_str = super(RedactingFormatter, self).format(record)
-        return filter_datum(self.fields,
-                            self.REDACTION,
-                            record_str,
-                            self.SEPARATOR)
+        return filter_datum(self.fields, self.REDACTION, record_str, self.SEPARATOR)
 
 
 def get_logger() -> logging.Logger:
@@ -51,3 +49,5 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(handler)
     return logger
+
+
