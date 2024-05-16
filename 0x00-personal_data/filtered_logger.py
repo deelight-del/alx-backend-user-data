@@ -65,3 +65,28 @@ def get_db() -> connection.MySQLConnection:
                                       password=password,
                                       host=host,
                                       database=database)
+
+
+def main() -> None:
+    """Main Function that takes and return nothing
+    Uses logger to log info from database"""
+    logger = get_logger()
+    col_names = ("name", "email", "phone", "ssn", "password", "ip",
+                 "last_login", "user_agent")
+    db_conn = get_db()
+    curr = db_conn.cursor()
+    curr.execute("SELECT * FROM users")
+    row = curr.fetchone()
+    while row is not None:
+        msg_string = ""
+        for i in range(len(col_names)):
+            msg_string += f"{col_names[i]}={row[i]};"
+        # print(msg_string)
+        logger.info(msg_string)
+        row = curr.fetchone()
+    curr.close()
+    db_conn.close()
+
+
+if __name__ == "__main__":
+    main()
