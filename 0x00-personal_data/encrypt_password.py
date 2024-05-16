@@ -3,6 +3,7 @@
 
 
 import bcrypt
+import typing
 
 
 def hash_password(password: str) -> str:
