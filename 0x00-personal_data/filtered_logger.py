@@ -6,6 +6,7 @@ string and help it out"""
 from mysql.connector import connection
 from typing import List, Sequence
 import logging
+import os
 import re
 
 
@@ -37,7 +38,10 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """The format method that will format respectilvely"""
         record_str = super(RedactingFormatter, self).format(record)
-        return filter_datum(self.fields, self.REDACTION, record_str, self.SEPARATOR)
+        return filter_datum(self.fields,
+                            self.REDACTION,
+                            record_str,
+                            self.SEPARATOR)
 
 
 def get_logger() -> logging.Logger:
@@ -51,3 +55,13 @@ def get_logger() -> logging.Logger:
     return logger
 
 
+def get_db() -> connection.MySQLConnection:
+    """Function that returns a mysql connector to a db"""
+    user = os.getenv('PERSONAL_DATA_DB_USERNAME', "root")
+    password = os.getenv('PERSONAL_DATA_DB_PASSWORD', "")
+    host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    database = os.getenv('PERSONAL_DATA_DB_NAME')
+    return connection.MySQLConnection(user=user
+                                      password=password
+                                      host=host,
+                                      database=database)
