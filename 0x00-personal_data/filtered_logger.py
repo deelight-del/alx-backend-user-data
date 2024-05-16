@@ -6,12 +6,8 @@ import typing
 import re
 
 
-def filter_datum(fields: typing.Sequence,
-                 redaction: str,
-                 message: str,
+def filter_datum(fields: typing.Sequence, redaction: str, message: str,
                  seperator: str):
-    """Function to implement obfustication based
-    on the redaction and field string
-    """
+    """Function to implement obfustication based"""
     pattern = r"(" + "|".join(fields) + r")" + r"(=.*?)" + seperator
     return re.sub(pattern, r"\1=" + redaction + seperator, message)
