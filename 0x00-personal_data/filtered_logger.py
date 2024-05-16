@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module that will obfusticate a given 
+"""Module that will obfusticate a given
 string and help it out"""
 
 
@@ -35,3 +35,4 @@ class RedactingFormatter(logging.Formatter):
                             self.REDACTION,
                             record_str,
                             self.SEPARATOR)
+
