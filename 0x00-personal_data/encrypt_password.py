@@ -7,4 +7,4 @@ import bcrypt
 
 def hash_password(password: str) -> str:
     """Function to return a salted, hashed password"""
-    return bcrypt.hashpw(password, bcrypt.gensalt())
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
