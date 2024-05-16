@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Module that will obfusticate a given string"""
+"""Module that will obfusticate a given 
+string and help it out"""
 
 
 from typing import List
-import re
 import logging
+import re
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
