@@ -8,6 +8,9 @@ import logging
 import re
 
 
+PII_FIELDS = ('name', 'email', 'ssn', 'password', 'phone')
+
+
 def filter_datum(fields: List[str], redaction: str, message: str,
                  seperator: str) -> str:
     """Function to implement obfustication based"""
@@ -37,3 +40,14 @@ class RedactingFormatter(logging.Formatter):
                             self.REDACTION,
                             record_str,
                             self.SEPARATOR)
+
+
+def get_logger() -> logging.Logger:
+    """Function that takes no argument and returns a Logger object"""
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    handler = logger.StreamHandler()
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    logger.addHandler(handler)
+    return logger
