@@ -14,11 +14,11 @@ PII_FIELDS = ('name', 'email', 'ssn', 'password', 'phone')
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
-                 seperator: str) -> str:
+                 separator: str) -> str:
     """Function to implement obfustication based"""
     if len(fields) > 0:
-        pattern = r"(" + "|".join(fields) + r")" + r"(=.*?)" + seperator
-        return re.sub(pattern, r"\1=" + redaction + seperator, message)
+        pattern = r"(" + "|".join(fields) + r")" + r"(=.*?)" + separator
+        return re.sub(pattern, r"\1=" + redaction + separator, message)
     return message
 
 
