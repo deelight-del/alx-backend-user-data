@@ -4,7 +4,7 @@ string and help it out"""
 
 
 from mysql.connector import connection
-from typing import List, Sequence
+from typing import List
 import logging
 import os
 import re
@@ -13,7 +13,7 @@ import re
 PII_FIELDS = ('name', 'email', 'ssn', 'password', 'phone')
 
 
-def filter_datum(fields: Sequence[str], redaction: str, message: str,
+def filter_datum(fields: List[str], redaction: str, message: str,
                  seperator: str) -> str:
     """Function to implement obfustication based"""
     if len(fields) > 0:
@@ -30,7 +30,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: Sequence[str]) -> None:
+    def __init__(self, fields: List[str]) -> None:
         """The initialization method"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
@@ -50,7 +50,7 @@ def get_logger() -> logging.Logger:
     logger.setLevel(logging.INFO)
     logger.propagate = False
     handler = logging.StreamHandler()
-    handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    handler.setFormatter(RedactingFormatter(list(PII_FIELDS)))
     logger.addHandler(handler)
     return logger
 
