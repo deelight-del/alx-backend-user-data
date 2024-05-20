@@ -27,7 +27,7 @@ class Auth:
         """
         if request is None:
             return None
-        return request.authorization
+        return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar('User'):
         """The method to retrieve the user info at a given session
