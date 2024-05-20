@@ -31,3 +31,9 @@ def un_authorized() -> None:
     """Function to raise 401 error.
     """
     abort(401)
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden() -> None:
+    """Raise 403 Error"""
+    abort(403)
