@@ -4,6 +4,7 @@ Route module for the API
 """
 from os import getenv
 from api.v1.views import app_views
+from api.v1.auth.auth import Auth
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
 import os
@@ -12,6 +13,35 @@ import os
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+auth = None
+AUTH_TYPES = {
+    "auth": Auth
+}
+if os.getenv("AUTH_TYPE"):
+    auth_class = AUTH_TYPES.get(
+        os.getenv("AUTH_TYPE")
+    )
+    print("Our auth_class", auth_class)
+    if auth_class:
+        auth = auth_class()
+
+
+def before_request_handler() -> None:
+    """Method to handle before any request is made"""
+    if auth is None:
+        return None
+    excluded_list = ['/api/v1/status/',
+                     '/api/v1/unauthorized/',
+                     '/api/v1/forbidden/']
+    if not auth.require_auth(request.path, excluded_list):
+        return None
+    if auth.authorization_header(request) is None:
+        abort(401)
+    if auth.current_user is None:
+        abort(403)
+
+
+app.before_request(before_request_handler)
 
 
 @app.errorhandler(404)

@@ -21,10 +21,13 @@ class Auth:
                 return False
         return True
 
-
     def authorization_header(self, request=None) -> str:
-        """pulic method adds authorization header to a request header"""
-        return None
+        """pulic method that checks the request header for the authorization
+        field
+        """
+        if request is None:
+            return None
+        return request.authorization
 
     def current_user(self, request=None) -> TypeVar('User'):
         """The method to retrieve the user info at a given session
