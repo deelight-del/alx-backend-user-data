@@ -68,7 +68,8 @@ class BasicAuth(Auth):
         return users_with_user_email[0]
 
     def current_user(self, request=None) -> TypeVar('User'):
-        super().current_user(request)
+        """Method of current_user that implements all other
+        methods to authenticate a given user"""
         auth_header = self.authorization_header(request)
         base64_auth_header = (
             self.extract_base64_authorization_header(auth_header)
