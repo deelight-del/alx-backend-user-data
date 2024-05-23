@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""User SEssion Class for persisting a
+"""User Session Class for persisting a
 Users session"""
 
 
