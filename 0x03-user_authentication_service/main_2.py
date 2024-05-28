@@ -28,3 +28,21 @@ try:
     print(find_user.id)
 except InvalidRequestError:
     print("Invalid")
+try:
+    print("Here1")
+    find_user = my_db.find_user_by()
+    print(find_user.id)
+except InvalidRequestError:
+    print("Invalid")
+try:
+    print("Here2")
+    find_user = my_db.find_user_by("no_email")
+    print(find_user.id)
+except InvalidRequestError:
+    print("Invalid")
+try:
+    print("Here3")
+    find_user = my_db.find_user_by(None)
+    print(find_user.id)
+except InvalidRequestError:
+    print("Invalid")
