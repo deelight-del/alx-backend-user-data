@@ -2,6 +2,8 @@
 """Module to auth.py functionalities"""
 
 
+from typing import Union
+
 import bcrypt
 from uuid import uuid4
 
@@ -56,3 +58,18 @@ class Auth:
             return session_id
         except NoResultFound:
             return None
+
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+        """Method to return a user object or none based on sesion id"""
+        if session_id is None:
+            return None
+        try:
+            user_obj = self._db.find_user_by(session_id=session_id)
+            return user_obj
+        except NoResultFound:
+            return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """Method to destroy the given session, and update
+        the session_id to None"""
+        self._db.update_user(user, session_id=None)
