@@ -48,3 +48,10 @@ class DB:
         if query.first() is None:
             raise NoResultFound
         return query.first()
+
+    def update_user(self, user_id: int, *args, **kwargs) -> None:
+        """Method to update a given User object"""
+        user_obj = self.find_user_by(id=user_id)
+        for k, v in kwargs.items():
+            setattr(user_obj, k, v)
+        self._session.commit()
