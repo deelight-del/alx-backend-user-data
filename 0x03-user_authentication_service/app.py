@@ -43,13 +43,13 @@ def login() -> str:
     return resp
 
 
-@app.route("/sessions", methods=["POST"])
+@app.route("/sessions", methods=["DELETE"])
 def logout():
     """Logout method"""
     session_id = request.cookies.get("session_id")
     user_obj = AUTH.get_user_from_session_id(session_id)
     if user_obj:
-        AUTH.destroy_session(user_obj.id)
+        AUTH.destroy_session(int(user_obj.id))
         return redirect(url_for("login"))
     else:
         abort(403)

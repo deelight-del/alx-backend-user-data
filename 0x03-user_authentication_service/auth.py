@@ -72,4 +72,4 @@ class Auth:
     def destroy_session(self, user_id: int) -> None:
         """Method to destroy the given session, and update
         the session_id to None"""
-        self._db.update_user(user, session_id=None)
+        self._db.update_user(user_id, session_id=None)
